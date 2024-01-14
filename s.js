@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Exclude columns 2 and 3
         for (let i = 0; i < headers.length; i++) {
-          if (i !== 2 && i !== 3) {
+          if (i !== 2 && i !== 3 && i !== 10 && i !== 11 && i !== 12) {
             const th = document.createElement("th");
             th.appendChild(document.createTextNode(headers[i]));
             headerRow.appendChild(th);
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           // Exclude columns 2 and 3
           for (let j = 0; j < rowData.length; j++) {
-            if (j !== 2 && j !== 3) {
+            if (j !== 2 && j !== 3 && j !== 10 && j !== 11 && j !== 12) {
               const td = document.createElement("td");
               td.appendChild(document.createTextNode(rowData[j]));
               row.appendChild(td);
