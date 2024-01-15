@@ -7,13 +7,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const rows = data.split("\n");
         const table = document.createElement("table");
 
+        let total = 0; // Initialize total as 0
+
         // Create table headers
         const headers = rows[0].split(",");
         const headerRow = document.createElement("tr");
 
-        // Exclude columns 2 and 3
+        // Exclude columns 2, 3, 10, 11, and 9
         for (let i = 0; i < headers.length; i++) {
-          if (i !== 2 && i !== 3 && i !== 10 && i !== 11 && i !== 9) {
+          if (![2, 3, 10, 11, 9].includes(i)) {
             const th = document.createElement("th");
             th.appendChild(document.createTextNode(headers[i]));
             headerRow.appendChild(th);
@@ -25,13 +27,14 @@ document.addEventListener("DOMContentLoaded", function () {
         // Create table rows
         for (let i = 1; i < rows.length; i++) {
           const rowData = rows[i].split(",");
-          console.log(rowData);
 
           const row = document.createElement("tr");
 
-          // Exclude columns 2 and 3
+          total++; // Increment total count
+
+          // Exclude columns 2, 3, 10, 11, and 9
           for (let j = 0; j < rowData.length; j++) {
-            if (j !== 2 && j !== 3 && j !== 10 && j !== 11 && j !== 9) {
+            if (![2, 3, 10, 11, 9].includes(j)) {
               const td = document.createElement("td");
               td.appendChild(document.createTextNode(rowData[j]));
               row.appendChild(td);
@@ -40,16 +43,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
           table.appendChild(row);
         }
+        // Display the total on the webpage
+        document.getElementById("total").innerHTML = total;
 
         // Display the table on the webpage
-        document.getElementById("csvTable").innerHTML = "";
-        document.getElementById("csvTable").appendChild(table);
+        const csvTableElement = document.getElementById("csvTable");
+        csvTableElement.innerHTML = ""; // Clear previous content
+        csvTableElement.appendChild(table);
       })
       .catch((error) => console.error("Error:", error));
   }
 
-  // Add an event listener to a button with the ID "displayBtn"
-  document
-    .getElementById("displayBtn")
-    .addEventListener("click", displayCSVData);
+  // Call the function to display CSV data
+  displayCSVData();
 });
