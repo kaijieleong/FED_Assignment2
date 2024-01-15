@@ -1,19 +1,17 @@
-var settings = {
-  async: true,
-  crossDomain: true,
+const APIKEY = "65996a870b08685ca8232bf2";
 
-  method: "GET",
-  headers: {
-    "content-type": "application/json",
-    "x-apikey": "65996a870b08685ca8232bf2",
-    "cache-control": "no-cache",
-  },
-};
-
-function performLogin() {
+function getdata() {
   let name = document.getElementById("exampleInputEmail1").value;
   let password = document.getElementById("exampleInputPassword1").value;
 
+  let settings = {
+    method: "GET", //[cher] we will use GET to retrieve info
+    headers: {
+      "Content-Type": "application/json",
+      "x-apikey": APIKEY,
+      "Cache-Control": "no-cache",
+    },
+  };
   fetch("https://fed23-25a3.restdb.io/rest/accc", settings)
     .then((response) => {
       if (!response.ok) {
@@ -44,7 +42,4 @@ function performLogin() {
       console.error("Fetch error:", error);
     });
 }
-
-document
-  .querySelector(".btn.btn-primary")
-  .addEventListener("click", performLogin);
+document.querySelector(".btn.btn-primary").addEventListener("click", getdata());
