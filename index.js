@@ -48,38 +48,3 @@ function performLogin() {
 document
   .querySelector(".btn.btn-primary")
   .addEventListener("click", performLogin);
-
-const fs = require("fs");
-
-// Read the carpark information file
-const carparkInfo = fs.readFileSync("HDBCarparkInformation.csv", "utf8");
-const lines = carparkInfo.trim().split("\n");
-
-// Split the header
-const info = lines[0].split(",");
-
-// Create empty list
-const carparkList = [];
-
-// Iterate through the other lines of car park info
-for (let i = 1; i < lines.length; i++) {
-  // Create dictionary
-  const carpark = {};
-  const data = lines[i].split(",", 3);
-
-  // Populate the dictionary using a for-loop
-  for (let j = 0; j < info.length; j++) {
-    carpark[info[j]] = data[j];
-  }
-
-  // Append the dictionary to the carparkList
-  carparkList.push(carpark);
-}
-
-// Convert the carparkList to JSON
-const carparkJson = JSON.stringify(carparkList, null, 2);
-
-// Write the JSON to a file
-fs.writeFileSync("carpark-information.json", carparkJson);
-
-// Now, carpark-information.json contains the carpark information in JSON format
