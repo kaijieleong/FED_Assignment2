@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         for (let i = 0; i < data.length; i++) {
           if (data[i].name === name && data[i].password === password) {
-            window.location.href = "CarParkList.html";
+            window.location.href = "Html/CarParkList.html";
             return; // exit the loop if the user is found
           }
         }
