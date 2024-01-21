@@ -1,0 +1,25 @@
+body {
+  background-image: url("BG.png");
+}
+#Widget {
+  display: flex;
+  flex-wrap: wrap;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(30px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  border-radius: 10px;
+}
+.area-container {
+  flex: 0 0 48%; /* Adjust the width of each area container as needed */
+  margin: 10px; /* Add margin for spacing */
+  padding: 10px;
+  margin-bottom: 10px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  box-sizing: border-box;
+}
