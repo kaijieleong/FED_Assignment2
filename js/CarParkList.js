@@ -1,21 +1,19 @@
 var currentURL = window.location.href;
+console.log(currentURL);
 var hdbCN, CN;
 var apiCN = [];
 var carINFO = [];
-if (currentURL.includes("CarParkList.html")) {
+if (currentURL.includes("Html/CarParkList.html")) {
   displayCSVData();
-}
-else if (currentURL.includes("CarParkInfo.html")) {
+} else if (currentURL.includes("Html/CarParkInfo.html")) {
   CarparkAPI();
   setTimeout(() => {
     SearchData();
   }, 1000);
-
 }
-var loc = "Jurong";
 //var loc = document.querySelector('.input-group input');
 function displayCSVData() {
-  fetch("HDBCarparkInformation.csv")
+  fetch("../HDBCarparkInformation.csv")
     .then((response) => response.text())
     .then((data) => {
       const rows = data.split("\n");
@@ -28,7 +26,7 @@ function displayCSVData() {
       var headerRow = document.createElement("tr");
       for (let i = 0; i < headers.length; i++) {
         if (headers[i].includes("_")) {
-          headers[i] = headers[i].replace(/_/g, " ")
+          headers[i] = headers[i].replace(/_/g, " ");
         }
       }
       // Exclude columns 2, 3, 10, 11, and 9
@@ -74,11 +72,9 @@ function displayCSVData() {
       csvTableElement.appendChild(table);
     })
     .catch((error) => console.error("Error:", error));
-
 }
 function CarparkAPI() {
   fetch("https://api.data.gov.sg/v1/transport/carpark-availability")
-
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -94,7 +90,7 @@ function CarparkAPI() {
         //console.log(carparkDataArray[i].carpark_number);
       }
       console.log(apiCN.length);
-    })
+    });
 }
 function SearchData() {
   fetch("HDBCarparkInformation.csv")
@@ -110,7 +106,7 @@ function SearchData() {
       //console.log(headers);
       for (let i = 0; i < headers.length; i++) {
         if (headers[i].includes("_")) {
-          headers[i] = headers[i].replace(/_/g, " ")
+          headers[i] = headers[i].replace(/_/g, " ");
         }
       }
       //console.log(apiCN);
@@ -145,7 +141,6 @@ function SearchData() {
         const row = document.createElement("tr");
         // Exclude columns 2, 3, 10, 11, and 9
         for (let j = 0; j < rowData.length; j++) {
-
           //console.log(j);
           if (![2, 3, 10, 11, 9].includes(j)) {
             //console.log(apiCN);
@@ -154,8 +149,6 @@ function SearchData() {
               td.appendChild(document.createTextNode(rowData[j]));
               row.appendChild(td);
             }
-
-
           }
         }
 
@@ -168,6 +161,5 @@ function SearchData() {
       const csvTableElement = document.getElementById("csvTable");
       csvTableElement.innerHTML = ""; // Clear previous content
       csvTableElement.appendChild(table);
-    })
-
+    });
 }
