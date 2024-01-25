@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   let carparksList = []; // Initialize an empty list
   let csvList = []; // Initialize an empty list to store CSV data
+  // Merge the lists based on carpark number
+  let mergedList = [];
 
   // Fetch carpark availability data
   fetch("https://api.data.gov.sg/v1/transport/carpark-availability")
@@ -67,9 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
         csvList.push(csvObject);
       }
 
-      // Merge the lists based on carpark number
-      let mergedList = [];
-
       for (let i = 0; i < carparksList.length; i++) {
         let carpark = carparksList[i];
         let matchingCSV = null;
@@ -88,4 +87,47 @@ document.addEventListener("DOMContentLoaded", function () {
 
       console.log("Merged List:", mergedList);
     });
+  const tableTemplate = document.querySelector("carpark_table");
+  const searchInput = document.querySelector("search");
+  const tableinput = document.querySelector("data");
+  const clearbtn = document.querySelector("btn");
+  const info_carpark = [];
+  searchInput.addEventListener("input", (e) => {
+    const value = e.target.value.toLowerCase();
+    info_carpark.forEach((mergedList) => {
+      const isVisible = mergedList.address.toLowerCase().includes(value);
+      mergedList.element.classList.toggle("hide", !isVisible);
+    });
+    checkedData();
+  });
+
+  clearbtn.addEventListener("click", function (e) {
+    // Prevent default action of the button
+    e.preventDefault();
+    searchInput.value = "";
+  });
+
+  function checkedData() {
+    info_carpark = mergedList.map((mergedList) => {
+      const table = document.importNode(tableTemplate.content, true)
+        .children[0];
+      const header = table.querySelector(".table__body"); // Adjust the selector accordingly
+      const body = table.querySelector(".table-secondary"); // Adjust the selector accordingly
+
+      if (header && body) {
+        header.textContent = mergedList.address;
+        body.textContent = mergedList.lotsAvailable;
+        tableinput.appendChild(table);
+
+        return {
+          address: mergedList.address,
+          lotsAvailable: mergedList.lotsAvailable,
+          element: table,
+        };
+      } else {
+        console.error("Header or body element not found");
+        return null;
+      }
+    });
+  }
 });

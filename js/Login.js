@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "Cache-Control": "no-cache",
       },
     };
-    fetch("https://fed23-25a3.restdb.io/rest/account", settings)
+    fetch("https://fed23-25a3.restdb.io/rest/accc", settings)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -29,12 +29,12 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .then((data) => {
         console.log(data);
-        let names = document.getElementById("name").value;
-        let passwords = document.getElementById("Password").value;
+        let name = document.getElementById("exampleInputEmail1").value;
+        let password = document.getElementById("exampleInputPassword1").value;
 
         for (let i = 0; i < data.length; i++) {
-          if (data[i].name === names && data[i].password === passwords) {
-            location.href = "Home.html";
+          if (data[i].name === name && data[i].password === password) {
+            window.location.href = "../Html/CarParkList.html";
             return; // exit the loop if the user is found
           }
         }
@@ -47,22 +47,3 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 });
-
-//function togglePasswordVisibility() {
-//const passwordInputs = document.querySelectorAll('input[type="password"]');
-// const showPasswordCheckbox = document.getElementById("Check");
-
-// if (showPasswordCheckbox.checked) {
-// for(i=0;){
-
-//  }
-//   passwordInputs[i].type = "password";
-// } else {
-//   passwordInputs[i].type = "text";
-// }
-
-//}
-
-// Attach the togglePasswordVisibility function to the checkbox change event
-//const showPasswordCheckbox = document.getElementById("Check");
-//showPasswordCheckbox.addEventListener("click", togglePasswordVisibility);
