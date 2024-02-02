@@ -126,7 +126,7 @@
       </button>
     </div>
     <div>
-      <h2>Find by location</h2>
+      <h1>Find by location</h1>
       <form class="d-flex" role="search">
         <input
           class="form-control me-2 search"
@@ -134,19 +134,30 @@
           placeholder="Search"
           aria-label="Search"
         />
-        <button class="btn btn-outline-success" type="submit">Clear</button>
+        <button class="btn btn-outline-success" id="" type="submit">
+          Clear
+        </button>
       </form>
     </div>
-    <div class="data"></div>
-    <template class="table" id="carpark_table">
-      <section class="table__header">
-        <h1>CarPark List</h1>
-        <h1>Total CarPark:<label id="total"></label></h1>
-      </section>
-      <section class="table__body">
-        <table class="table-secondary"></table>
-      </section>
-    </template>
+    <div class="box">
+      <main class="table">
+        <section class="table__header">
+          <h1>CarPark List</h1>
+          <h1>Total CarPark:<label id="total"></label></h1>
+        </section>
+        <section class="table__body">
+          <table class="table-primary">
+            <thead>
+              <tr>
+                <th>Address</th>
+              </tr>
+            </thead>
+            <tbody id="body"></tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
