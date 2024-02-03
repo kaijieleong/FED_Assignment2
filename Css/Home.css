@@ -4,12 +4,6 @@
   box-sizing: border-box;
   font-family: sans-serif;
 }
-body {
-  background-image: url("BG.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-}
 .box {
   display: flex;
   justify-content: center;
@@ -110,8 +104,10 @@ tbody tr:hover {
 .status.m {
   background-color: #ebc474;
 }
-@media (max-width: 1000px) {
+@media (max-width: 500px) {
   td:not(:first-of-type) {
-    min-width: 12.1rem;
+    min-width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
   }
 }

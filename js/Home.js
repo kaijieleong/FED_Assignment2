@@ -61,16 +61,38 @@ document.addEventListener("DOMContentLoaded", function () {
         Num.textContent = counter;
         const addressCell = document.createElement("td");
         addressCell.textContent = carpark.address;
-        const buttonCell = document.createElement("td");
-        buttonCell.appendChild(button);
+        const Addbutton = document.createElement("td");
+        Addbutton.appendChild(button);
 
         // Append cells to the row
         row.appendChild(Num);
         row.appendChild(addressCell);
-        row.appendChild(buttonCell);
+        row.appendChild(Addbutton);
 
         // Append the row to the body
         body.appendChild(row);
+
+        button.addEventListener("click", function () {
+          // Retrieve the address when the button is clicked
+          const carparkInfo = {
+            carparkNumber: carpark.carparkNumber,
+            address: carpark.address,
+            carparkType: carpark.carparkType,
+            typeOfParkingSystem: carpark.typeOfParkingSystem,
+            shortTermParking: carpark.shortTermParking,
+            freeParking: carpark.freeParking,
+            nightParking: carpark.nightParking,
+            carparkDecks: carpark.carparkDecks,
+            gantryHeight: carpark.gantryHeight,
+            carparkBasement: carpark.carparkBasement,
+          };
+          localStorage.clear();
+          localStorage.setItem(
+            carpark.carparkNumber,
+            JSON.stringify(carparkInfo)
+          );
+          window.location = "../Html/CarParkInfo.html";
+        });
       }
     }
     total.textContent = `${counter}`;
