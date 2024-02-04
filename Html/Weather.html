@@ -33,65 +33,66 @@
         autoplay
       ></dotlottie-player>
     </div>
-    <div id="content">
-      <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">CarParkXD</a>
-          <dotlottie-player
-            src="https://lottie.host/814c4c0c-5d65-4595-b7fa-8702c9851883/wYbVvCye7e.json"
-            background="transparent"
-            speed="1"
-            style="width: 75px; height: 75px"
-            loop
-            autoplay
-          ></dotlottie-player>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">CarParkXD</a>
+        <dotlottie-player
+          src="https://lottie.host/814c4c0c-5d65-4595-b7fa-8702c9851883/wYbVvCye7e.json"
+          background="transparent"
+          speed="1"
+          style="width: 75px; height: 75px"
+          loop
+          autoplay
+        ></dotlottie-player>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="../Html/Home.html"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../Html/Weather.html">Weather</a>
+            </li>
+          </ul>
+          <button class="btn btn-outline-success" id="login" type="button">
+            Login
           </button>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  aria-current="page"
-                  href="../Html/Home.html"
-                  >Home</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../Html/Weather.html">Weather</a>
-              </li>
-            </ul>
-          </div>
         </div>
-      </nav>
-
-      <div class="box">
-        <main class="table">
-          <section class="table__header">
-            <h3>Weather Forecast</h3>
-          </section>
-          <section class="table__body">
-            <table class="table-primary">
-              <thead>
-                <tr>
-                  <th>Location</th>
-                </tr>
-              </thead>
-              <tbody id="body"></tbody>
-            </table>
-          </section>
-        </main>
       </div>
+    </nav>
+
+    <div class="box">
+      <main class="table">
+        <section class="table__header">
+          <h3>Weather Forecast</h3>
+        </section>
+        <section class="table__body">
+          <table class="table-primary">
+            <thead>
+              <tr>
+                <th>Location</th>
+              </tr>
+            </thead>
+            <tbody id="body"></tbody>
+          </table>
+        </section>
+      </main>
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

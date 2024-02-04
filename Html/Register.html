@@ -10,9 +10,25 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
+
+    <link rel="stylesheet" href="../Css/Main.css" />
     <link rel="stylesheet" href="../Css/Register.css" />
+    <script
+      src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
+      type="module"
+    ></script>
   </head>
   <body>
+    <div id="loading-page">
+      <dotlottie-player
+        src="https://lottie.host/ca4f6576-7e1c-4cf9-b6b6-31310f811817/dQyHiGq3tX.json"
+        background="transparent"
+        speed="1"
+        style="width: 300px; height: 300px"
+        loop
+        autoplay
+      ></dotlottie-player>
+    </div>
     <div class="wrapper">
       <form>
         <div class="input-box">
@@ -59,6 +75,7 @@
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
+    <script src="../js/Main.js"></script>
     <script src="../js/Register.js"></script>
   </body>
 </html>

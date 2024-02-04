@@ -1,10 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
   setTimeout(Loadingpage, 3000);
+  Login();
 });
 
 function Loadingpage() {
   // Hide the loading page
   document.getElementById("loading-page").style.display = "none";
-  // Show the main content
-  document.getElementById("content").style.display = "block";
+}
+function Login() {
+  const login = document.querySelector("#login");
+  login.addEventListener("click", function () {
+    window.location.href = "../Html/Login.html";
+  });
 }
