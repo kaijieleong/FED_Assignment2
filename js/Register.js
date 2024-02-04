@@ -85,21 +85,18 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Fetch error:", error);
       });
   }
-});
-
-function togglePasswordVisibility() {
-  const passwordInputs = document.querySelectorAll('input[type="password"]');
-  const showPasswordCheckbox = document.getElementById("Check");
-
-  for (let i = 0; i < passwordInputs.length; i++) {
-    if (showPasswordCheckbox.checked) {
-      passwordInputs[i].type = "password";
+  const Password1 = document.querySelector("#Password1");
+  const Password2 = document.querySelector("#Password2");
+  const Checkbox = document.getElementById("Check");
+  Checkbox.onclick = function () {
+    if (Password1.type == "password") {
+      // Show password
+      Password1.type = "text";
+      Password2.type = "text";
     } else {
-      passwordInputs[i].type = "text";
+      // Hide password
+      Password1.type = "password";
+      Password2.type = "password";
     }
-  }
-}
-
-// Attach the togglePasswordVisibility function to the checkbox change event
-const showPasswordCheckbox = document.getElementById("Check");
-showPasswordCheckbox.addEventListener("click", togglePasswordVisibility);
+  };
+});

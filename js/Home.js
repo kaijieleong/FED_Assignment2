@@ -44,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
     body.innerHTML = "";
     let counter = 0;
     const total = document.querySelector("#total");
-
     for (let i = 0; i < CsvList.length; i++) {
       const carpark = CsvList[i];
       if (carpark.address && carpark.address.includes(value)) {
@@ -91,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
             carpark.carparkNumber,
             JSON.stringify(carparkInfo)
           );
-          window.location = "../Html/CarParkInfo.html";
+          window.location.href = "../Html/CarParkInfo.html";
         });
       }
     }

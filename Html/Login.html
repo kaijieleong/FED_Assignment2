@@ -14,12 +14,28 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
     />
+    <script
+      src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
+      type="module"
+    ></script>
+    <link rel="stylesheet" href="../Css/Main.css" />
     <link rel="stylesheet" href="../Css/Login.css" />
   </head>
   <body>
+    <div id="loading-page">
+      <dotlottie-player
+        src="https://lottie.host/ca4f6576-7e1c-4cf9-b6b6-31310f811817/dQyHiGq3tX.json"
+        background="transparent"
+        speed="1"
+        style="width: 300px; height: 300px"
+        loop
+        autoplay
+      ></dotlottie-player>
+    </div>
     <div class="wrapper">
       <form>
         <div class="input-box">
+          <h1>Login</h1>
           <label for="name" class="form-label">Name</label>
           <input type="text" class="form-control" id="name" />
           <span class="material-symbols-outlined icon"> account_circle </span>
@@ -48,6 +64,7 @@
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
+    <script src="../js/Main.js"></script>
     <script src="../js/Login.js"></script>
   </body>
 </html>
