@@ -1,20 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Black Ops One", system-ui;
 }
-body {
-  font-family: "poppins", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+.box-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-image: url("BG.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 .wrapper {
   width: 420px;
@@ -50,14 +46,7 @@ body {
 .input-box input::placeholder {
   color: #fff;
 }
-.input-box .icon {
-  position: absolute;
-  right: -1px;
-  bottom: 31px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 35px;
-}
+
 .wrapper .form-check {
   display: flex;
   justify-content: space-between;

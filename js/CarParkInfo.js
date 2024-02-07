@@ -11,26 +11,34 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((response) => response.json())
       .then((data) => {
         let datas = data.items;
-
         for (let i = 0; i < datas.length; i++) {
           let carparkData = datas[i].carpark_data;
           //console.log(carpark);
           for (let j = 0; j < carparkData.length; j++) {
             let carparkInfo = carparkData[j].carpark_info;
-            // console.log(carparkInfo);
-            if (Array.isArray(carparkInfo) && carparkInfo.length > 0) {
-              let Info = carparkInfo[0];
+            if (Array.isArray(carparkInfo)) {
+              // Initialize variables to store total_lots and lots_available for each car park
+              let carparkTotalLots = 0;
+              let carparkLotsAvailable = 0;
 
-              // Create an object representing the carpark and push it to the list
-              let carparkObject = {
-                carparkNumber: carparkData[j].carpark_number,
-                lotsAvailable: Info.lots_available,
-                totalLots: Info.total_lots,
-                lotType: Info.lot_type,
-              };
+              for (let k = 0; k < carparkInfo.length; k++) {
+                let info = carparkInfo[k];
+                //console.log(info.total_lots);
+                carparkTotalLots += parseInt(info.total_lots, 10);
+                carparkLotsAvailable += parseInt(info.lots_available, 10);
 
-              CarparkLot.push(carparkObject);
+                let carparkObject = {
+                  carparkNumber: carparkData[j].carpark_number,
+                  lotsAvailable: carparkLotsAvailable,
+                  totalLots: carparkTotalLots,
+                };
+                CarparkLot.push(carparkObject);
+              }
             }
+
+            //console.log(carparkInfo);
+
+            //console.log(CarparkLot);
           }
         }
         let flag = false;
@@ -57,38 +65,27 @@ document.addEventListener("DOMContentLoaded", function () {
             shortTermParking.textContent = newdata.shortTermParking;
             typeOfParkingSystem.textContent = newdata.typeOfParkingSystem;
             gantryHeight.textContent = newdata.gantryHeight;
-            /*
-            const keys = Object.keys(weather);
-            const body = document.querySelector("#body");
-            for (let i = 0; i < keys.length; i++) {
-              const row = document.createElement("tr");
-              const wf = document.createElement("td");
-              const forecast = document.createElement("td");
 
-              if (newdata.address.includes(keys[i].toUpperCase())) {
+            const keys = Object.keys(weather);
+            const wf = document.querySelector("#wf");
+            const wft = document.querySelector("#wft");
+            for (let w = 0; w < keys.length; w++) {
+              if (newdata.address.includes(keys[w].toUpperCase())) {
                 wf.textContent = "Weather Forecast";
-                if (weather[keys[i]].includes("Cloudy")) {
-                  const cloudSymbol = document.createElement("span");
-                  cloudSymbol.className = "material-symbols-outlined";
-                  cloudSymbol.textContent = "cloud";
-                  forecast.append(cloudSymbol);
-                  forecast.append(document.createTextNode(weather[keys[i]]));
-                } else if (weather[keys[i]].includes("rain")) {
-                  const cloudSymbol = document.createElement("span");
-                  cloudSymbol.className = "material-symbols-outlined";
-                  cloudSymbol.textContent = "Rainy";
-                  forecast.append(cloudSymbol);
-                  forecast.append(document.createTextNode(weather[keys[i]]));
+                if (weather[keys[w]].includes("Cloudy")) {
+                  wft.className = "material-symbols-outlined";
+                  wft.textContent = "cloud";
+                  console.log(weather[keys[w]]);
+                  wft.appendChild(document.createTextNode(weather[keys[w]]));
+                } else if (weather[keys[w]].includes("rain")) {
+                  wft.className = "material-symbols-outlined";
+                  wft.textContent = "Rainy";
+                  wft.textContent = weather[keys[w]];
                 } else {
-                  forecast.textContent = weather[keys[i]];
+                  wft.textContent = weather[keys[w]];
                 }
-                row.append(wf);
-                row.append(forecast);
-                body.append(row);
               }
-              
             }
-            */
 
             //console.log(newdata.carparkNumber);
             for (let k = 0; k < CarparkLot.length; k++) {
@@ -99,6 +96,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 percent.textContent = percentage.toFixed(2) + "%";
                 tlot.textContent = CarparkLot[k].totalLots;
                 lota.textContent = CarparkLot[k].lotsAvailable;
+
+                if (percentage >= 70) {
+                  percent.classList.add("green");
+                  lota.classList.add("green");
+                } else if (percentage >= 30 && percentage < 70) {
+                  percent.classList.add("orange");
+                  lota.classList.add("orange");
+                } else {
+                  percent.classList.add("red");
+                  lota.classList.add("red");
+                }
               }
             }
           }
@@ -136,6 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
   }
+
   function showMsgalert() {
     const alertMsg = document.querySelector("#msg-alert");
     alertMsg.style.display = "block";

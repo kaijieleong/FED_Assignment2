@@ -36,9 +36,16 @@
     </div>
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
-         <img src="../Css/Logo.png" alt="Logo" />
+        <img src="../Css/Logo.png" alt="Logo" />
         <a class="navbar-brand" href="../Html/Home.html">CarParkXD</a>
-       
+        <dotlottie-player
+          src="https://lottie.host/814c4c0c-5d65-4595-b7fa-8702c9851883/wYbVvCye7e.json"
+          background="transparent"
+          speed="1"
+          style="width: 75px; height: 75px"
+          loop
+          autoplay
+        ></dotlottie-player>
         <button
           class="navbar-toggler"
           type="button"
@@ -84,7 +91,7 @@
       id="msg-alert"
       role="alert"
     >
-      <strong>Error:!</strong> Data not found.
+      <strong>Error:</strong>Data not found.
       <button
         type="button"
         class="btn-close"
@@ -92,67 +99,13 @@
         aria-label="Close"
       ></button>
     </div>
-    <div class="box">
-      <main class="table">
-        <section class="table__header">
-          <h3><label id="address-name"></label></h3>
-        </section>
-        <section class="table__body">
-          <table class="table-primary">
-            <thead>
-              <tr>
-                <th colspan="2">Detail Info</th>
-              </tr>
-            </thead>
-            <tbody id="body">
-              <tr>
-                <th>Total Lots</label></th>
-                <td><label id="tl"></label></td>
-              </tr>
-              <tr>
-                <th>lots Available</th>
-                <td><label id="la" class="status"></label></td>
-              </tr>
-              <tr>
-                <th>Percentage</th>
-                <td><label id="p" class="status"></label></td>
-              </tr>
-              <tr>
-                <th>Free Parking</th>
-                <td><label id="fp"></label></td>
-              </tr>
-              <tr>
-                <th>Night Parking</th>
-                <td><label id="np"></label></td>
-              </tr>
-              <tr>
-                <th>Short Term Parking</th>
-                <td><label id="stp"></label></td>
-              </tr>
-              <tr>
-                <th>Type Of Parking System</th>
-                <td><label id="tops"></label></td>
-              </tr>
-              <tr>
-                <th>Gantry Height</th>
-                <td><label id="gh"></label></td>
-              </tr>
-              <tr>
-                <th><label id="wf"></label></th>
-                <td><span id="wft"></span></td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
-      </main>
-    </div>
+    <main class="box"></main>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
-
     <script src="../js/Main.js"></script>
-    <script src="../js/CarParkInfo.js"></script>
+    <script src="../js/Favorite.js"></script>
   </body>
 </html>

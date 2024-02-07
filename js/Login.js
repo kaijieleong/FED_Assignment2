@@ -1,4 +1,4 @@
-const APIKEY = "65996a870b08685ca8232bf2";
+const APIKEY = "65c2552f71a48870cb8b07de";
 document.addEventListener("DOMContentLoaded", function () {
   // [STEP 1]: Create our submit form listener
   document
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     };
 
-    fetch("https://fed23-25a3.restdb.io/rest/account", settings)
+    fetch("https://fed123-ecda.restdb.io/rest/fedinfo", settings)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -36,19 +36,11 @@ document.addEventListener("DOMContentLoaded", function () {
         for (let i = 0; i < data.length; i++) {
           if (data[i].name === name && data[i].password === password) {
             window.location.href = "../Html/Home.html";
+            localStorage.clear();
+            localStorage.setItem(data[i].id, data[i].id);
             return; // exit the loop if the user is found
           }
         }
-        const checkbox = document.querySelector("#Check");
-        checkbox.onclick = function () {
-          if (password.type == "password") {
-            // Show password
-            password.type = "text";
-          } else {
-            // Hide password
-            password.type = "password";
-          }
-        };
       });
   }
   const checkbox = document.querySelector("#Check");
