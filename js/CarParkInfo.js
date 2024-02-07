@@ -1,9 +1,40 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const delayInMilliseconds = 4000;
   HideMsgalert();
   let CarparkLot = [];
   let weather = {};
+  let accessToken;
+  GetAccessKey();
   GetWeather();
-  GetLot();
+  setTimeout(GetLot(), delayInMilliseconds);
+
+  function GetAccessKey() {
+
+    const data = {
+      email: "kaijieleong1188@gmail.com",
+      password: "81868900Aa!@"
+    };
+    fetch("https://www.onemap.gov.sg/api/auth/post/getToken", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        accessToken = data.access_token;
+        console.log(accessToken);
+      })
+      .catch(error => {
+        console.error("Fetch error:", error);
+      });
+  }
   console.log(CarparkLot);
   function GetLot() {
     fetch("https://api.data.gov.sg/v1/transport/carpark-availability")
@@ -55,11 +86,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const X = newdata.xCoord;
             const Y = newdata.yCoord;
             const url = `https://www.onemap.gov.sg/api/common/convert/3414to4326?X=${X}&Y=${Y}`;
+            console.log(accessToken);
 
             fetch(url, {
               method: "GET",
               headers: {
-                "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3NGQwZGMyMWFlZjBlZGM5Y2Q5OTk3Zjk4MDJlZjZhNCIsImlzcyI6Imh0dHA6Ly9pbnRlcm5hbC1hbGItb20tcHJkZXppdC1pdC0xMjIzNjk4OTkyLmFwLXNvdXRoZWFzdC0xLmVsYi5hbWF6b25hd3MuY29tL2FwaS92Mi91c2VyL3Bhc3N3b3JkIiwiaWF0IjoxNzA3Mjk4MTExLCJleHAiOjE3MDc1NTczMTEsIm5iZiI6MTcwNzI5ODExMSwianRpIjoiQ28wMWoyZmlaSUpSWVlxQyIsInVzZXJfaWQiOjIzNTYsImZvcmV2ZXIiOmZhbHNlfQ.wFM9kW_WXiCTlqdlkSyLKQNvT-o3vvyt1tF-Ztgt5QQ",
+                "Authorization": "Bearer " + accessToken,
                 "Content-Type": "application/json",
               },
             })
@@ -78,7 +110,34 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log("Geolocation is not supported by this browser.");
                   }
                 }
+                function mapfunction(l1, l2) {
 
+                  let sw = L.latLng(1.144, 103.535);
+                  let ne = L.latLng(1.494, 104.502);
+                  let bounds = L.latLngBounds(sw, ne);
+
+                  let map;
+                  fetch("https://www.onemap.gov.sg/maps/json/raster/tilejson/2.2.0/Default.json")
+                    .then(response => {
+                      if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                      }
+                      return response.json();
+                    })
+                    .then(data => {
+                      map = L.TileJSON.createMap('mapdiv', data);
+
+                      map.setMaxBounds(bounds);
+                      map.setView(L.latLng(l1, l2), 18);
+                      const marker = L.marker([l1, l2]).addTo(map);
+
+                      // Attribution
+                      map.attributionControl.setPrefix('<img src="https://www.onemap.gov.sg/web-assets/images/logo/om_logo.png" style="height:20px;width:20px;"/>&nbsp;<a href="https://www.onemap.gov.sg/" target="_blank" rel="noopener noreferrer">OneMap</a>&nbsp;&copy;&nbsp;contributors&nbsp;&#124;&nbsp;<a href="https://www.sla.gov.sg/" target="_blank" rel="noopener noreferrer">Singapore Land Authority</a>');
+                    })
+                    .catch(error => {
+                      console.error("Fetch error:", error);
+                    });
+                }
                 function Distance(position) {
                   const lat1 = position.coords.latitude;
                   const lon1 = position.coords.longitude;
@@ -87,6 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   distance = calculateDistance(lat1, lon1, lat2, lon2);
                   const roundedDistance = Math.round(distance * 10) / 10;
                   distances.textContent = roundedDistance + "KM";
+                  mapfunction(lat2, lon2);
                 }
                 const calculateDistance = (lat1, lon1, lat2, lon2) => {
                   const R = 6371; // Radius of the Earth in kilometers
@@ -102,6 +162,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
               })
+
+
+
             flag = true;
             addName.textContent = newdata.address;
             freeParking.textContent = newdata.freeParking;

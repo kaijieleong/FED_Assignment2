@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchInput = document.querySelector(".search");
   const body = document.querySelector("#body");
   const clearbtn = document.querySelector(".btn");
+
   fetch("../js/HDBCarparkInformation.csv")
     .then((response) => response.text())
     .then((data) => {
