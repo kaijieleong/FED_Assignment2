@@ -1,16 +1,16 @@
-const APIKEY = "65996a870b08685ca8232bf2";
+const APIKEY = "65c2477d514d39bbd55fdb3d";
 document.addEventListener("DOMContentLoaded", function () {
   // [STEP 1]: Create our submit form listener
   document.querySelector(".btn-Create").addEventListener("click", function (e) {
     // Prevent default action of the button
     e.preventDefault();
-
+    HideMsgalert();
     // [STEP 2]: Call your function to fetch and process data
     getdata();
     Createdata();
     getdata();
   });
-  let datas;
+  let datas = [];
   function getdata() {
     let settings = {
       method: "GET",
@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ) {
           passwords = document.getElementById("Password2").value;
         } else {
+          showMsgalert();
         }
       }
     }
@@ -70,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Disable our button or show loading bar
         document.querySelector(".btn-Create").disabled = true;
         // Clear our form using the form ID and triggering its reset feature
-        document.getElementById("add-contact-form").reset();
+        document.getElementById("add-form").reset();
       },
     };
     fetch("https://fed23-25a3.restdb.io/rest/account", settings)
@@ -99,4 +100,13 @@ document.addEventListener("DOMContentLoaded", function () {
       Password2.type = "password";
     }
   };
+
+  function showMsgalert() {
+    const alertMsg = document.querySelector("#msg-alert");
+    alertMsg.style.display = "block";
+  }
+  function HideMsgalert() {
+    const alertMsg = document.querySelector("#msg-alert");
+    alertMsg.style.display = "none";
+  }
 });
