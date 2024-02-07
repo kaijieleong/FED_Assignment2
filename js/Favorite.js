@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
       "Cache-Control": "no-cache",
     },
   };
-
   fetch(`https://fed123-ecda.restdb.io/rest/fedcar`, settings)
     .then((response) => response.json())
     .then((data) => {
@@ -28,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let datas = data.items;
         for (let i = 0; i < datas.length; i++) {
           let carparkData = datas[i].carpark_data;
+          //console.log(carpark);
           for (let j = 0; j < carparkData.length; j++) {
             let carparkInfo = carparkData[j].carpark_info;
             if (Array.isArray(carparkInfo)) {
@@ -36,16 +36,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
               for (let k = 0; k < carparkInfo.length; k++) {
                 let info = carparkInfo[k];
+                //console.log(info.total_lots);
                 carparkTotalLots += parseInt(info.total_lots, 10);
                 carparkLotsAvailable += parseInt(info.lots_available, 10);
-              }
 
-              let carparkObject = {
-                carparkNumber: carparkData[j].carpark_number,
-                lotsAvailable: carparkLotsAvailable,
-                totalLots: carparkTotalLots,
-              };
-              CarparkLot.push(carparkObject);
+                let carparkObject = {
+                  carparkNumber: carparkData[j].carpark_number,
+                  lotsAvailable: carparkLotsAvailable,
+                  totalLots: carparkTotalLots,
+                };
+                CarparkLot.push(carparkObject);
+              }
             }
           }
         }
@@ -61,118 +62,115 @@ document.addEventListener("DOMContentLoaded", function () {
               dbdata[j].carparknumber === carparkNumber
             ) {
               flag = true;
-              const mainContainer = document.querySelector(".box");
+              const container = document.createElement("div");
+              container.classList.add("box");
+              const main = document.createElement("main");
+              main.classList.add("table");
+              const header = document.createElement("section");
+              header.classList.add("table__header");
+              const h3 = document.createElement("h3");
+              const addressNameLabel = document.createElement("label");
+              addressNameLabel.textContent = dbdata[j].address;
+              h3.appendChild(addressNameLabel);
+              header.appendChild(h3);
+              main.appendChild(header);
 
-              const tableSection = document.createElement("section");
-              tableSection.classList.add("table");
-
-              const headerSection = document.createElement("section");
-              headerSection.classList.add("table__header");
-
-              const heading = document.createElement("h3");
-              const label = document.createElement("label");
-              label.textContent = dbdata[j].address;
-              heading.appendChild(label);
-              headerSection.appendChild(heading);
-              tableSection.appendChild(headerSection);
-              mainContainer.appendChild(tableSection);
-
-              const bodySection = document.createElement("section");
-              bodySection.classList.add("table__body");
-
+              const body = document.createElement("section");
+              body.classList.add("table__body");
               const table = document.createElement("table");
-              const tableHeader = document.createElement("thead");
-              tableHeader.innerHTML = `
-                                <tr>
-                                    <th colspan="2">Detail Info</th>
-                                </tr>
-                            `;
-              const tableBody = document.createElement("tbody");
-              table.appendChild(tableHeader);
-              table.appendChild(tableBody);
-              bodySection.appendChild(table);
-              tableSection.appendChild(bodySection);
-              document.body.appendChild(mainContainer);
+              table.classList.add("table-primary");
+              const thead = document.createElement("thead");
+              const tr = document.createElement("tr");
+              const th = document.createElement("th");
+              th.setAttribute("colspan", "2");
+              th.textContent = "Detail Info";
+              tr.appendChild(th);
+              thead.appendChild(tr);
+              table.appendChild(thead);
+              const tbody = document.createElement("tbody");
 
-              const addName = document.createElement("label");
-              const tlot = document.createElement("label");
-              const lota = document.createElement("label");
-              const percent = document.createElement("label");
-              const freeParking = document.createElement("label");
-              const nightParking = document.createElement("label");
-              const shortTermParking = document.createElement("label");
-              const typeOfParkingSystem = document.createElement("label");
-              const gantryHeight = document.createElement("label");
+              const createRow = (label, value) => {
+                const row = document.createElement("tr");
+                const labelCell = document.createElement("th");
+                labelCell.textContent = label;
+                const valueCell = document.createElement("td");
+                valueCell.textContent = value;
+                row.appendChild(labelCell);
+                row.appendChild(valueCell);
+                tbody.appendChild(row);
+              };
 
-              addName.textContent = dbdata[j].address;
-              freeParking.textContent = dbdata[j].freeparking;
-              nightParking.textContent = dbdata[j].nightparking;
-              shortTermParking.textContent = dbdata[j].shorttermparking;
-              typeOfParkingSystem.textContent = dbdata[j].typeofparkingsystem;
-              gantryHeight.textContent = dbdata[j].gantryheight;
+              createRow("Total Lots", carparks.totalLots);
+              createRow("Lots Available", carparks.lotsAvailable);
 
-              const keys = Object.keys(weather);
-              const wf = document.createElement("label");
-              const wft = document.createElement("span");
-              for (let w = 0; w < keys.length; w++) {
-                if (dbdata[j].address.includes(keys[w].toUpperCase())) {
-                  wf.textContent = "Weather Forecast";
-                  if (weather[keys[w]].includes("Cloudy")) {
-                    wft.className = "material-symbols-outlined";
-                    wft.textContent = "cloud";
-                    const textNode = document.createTextNode(weather[keys[w]]);
-                    wft.appendChild(textNode);
-                  } else if (weather[keys[w]].includes("rain")) {
-                    wft.className = "material-symbols-outlined";
-                    wft.textContent = "Rainy";
-                    wft.textContent = weather[keys[w]];
-                  } else {
-                    wft.textContent = weather[keys[w]];
-                  }
-                }
-              }
-
-              const LA = parseFloat(carparks.lotsAvailable);
-              const TL = parseFloat(carparks.totalLots);
-              let percentage = (LA / TL) * 100;
-              percent.textContent = percentage.toFixed(2) + "%";
-              tlot.textContent = carparks.totalLots;
-              lota.textContent = carparks.lotsAvailable;
+              const percentage =
+                (carparks.lotsAvailable / carparks.totalLots) * 100;
+              createRow("Percentage", percentage.toFixed(2) + "%");
 
               if (percentage >= 70) {
-                percent.classList.add("status", "green");
-                lota.classList.add("status", "green");
+                tbody.lastChild.lastChild.classList.add("status", "green");
+                tbody.lastChild.previousSibling.lastChild.classList.add(
+                  "status",
+                  "green"
+                );
               } else if (percentage >= 30 && percentage < 70) {
-                percent.classList.add("status", "orange");
-                lota.classList.add("status", "orange");
+                tbody.lastChild.lastChild.classList.add("status", "orange");
+                tbody.lastChild.previousSibling.lastChild.classList.add(
+                  "orange"
+                );
               } else {
-                percent.classList.add("status", "red");
-                lota.classList.add("status", "red");
+                tbody.lastChild.lastChild.classList.add("status", "red");
+                tbody.lastChild.previousSibling.lastChild.classList.add(
+                  "status",
+                  "red"
+                );
               }
 
-              const tbody = table.querySelector("tbody");
-              const row1 = createRow("Total Lots", carparks.totalLots);
-              const row2 = createRow("Lots Available", carparks.lotsAvailable);
-              const row3 = createRow("Percentage", percentage.toFixed(2) + "%");
-              const row4 = createRow("Free Parking", dbdata[j].freeparking);
-              const row5 = createRow("Night Parking", dbdata[j].nightparking);
-              const row6 = createRow(
-                "Short Term Parking",
-                dbdata[j].shorttermparking
-              );
-              const row7 = createRow(
+              createRow("Free Parking", dbdata[j].freeparking);
+              createRow("Night Parking", dbdata[j].nightparking);
+              createRow("Short Term Parking", dbdata[j].shorttermparking);
+              createRow(
                 "Type Of Parking System",
                 dbdata[j].typeofparkingsystem
               );
-              const row8 = createRow("Gantry Height", dbdata[j].gantryheight);
-              tbody.appendChild(row1);
-              tbody.appendChild(row2);
-              tbody.appendChild(row3);
-              tbody.appendChild(row4);
-              tbody.appendChild(row5);
-              tbody.appendChild(row6);
-              tbody.appendChild(row7);
-              tbody.appendChild(row8);
+              createRow("Gantry Height", dbdata[j].gantryheight);
+
+              const keys = Object.keys(weather);
+              for (let w = 0; w < keys.length; w++) {
+                if (dbdata[j].address.includes(keys[w].toUpperCase())) {
+                  const row = document.createElement("tr");
+                  const labelCell = document.createElement("th");
+                  labelCell.textContent = "Weather Forecast";
+                  const valueCell = document.createElement("td");
+                  const span = document.createElement("span");
+                  if (weather[keys[w]].includes("Cloudy")) {
+                    span.className = "material-symbols-outlined";
+                    span.textContent = "cloud";
+                    valueCell.appendChild(span);
+                    valueCell.appendChild(
+                      document.createTextNode(weather[keys[w]])
+                    );
+                  } else if (weather[keys[w]].includes("rain")) {
+                    span.className = "material-symbols-outlined";
+                    span.textContent = "Rainy";
+                    valueCell.appendChild(span);
+                    valueCell.appendChild(
+                      document.createTextNode(weather[keys[w]])
+                    );
+                  } else {
+                    valueCell.textContent = weather[keys[w]];
+                  }
+                  row.appendChild(labelCell);
+                  row.appendChild(valueCell);
+                  tbody.appendChild(row);
+                }
+              }
+
+              table.appendChild(tbody);
+              body.appendChild(table);
+              main.appendChild(body);
+              container.appendChild(main);
+              document.body.appendChild(container);
             }
           }
         }
@@ -180,17 +178,6 @@ document.addEventListener("DOMContentLoaded", function () {
           showMsgalert();
         }
       });
-  }
-
-  function createRow(labelText, value) {
-    const row = document.createElement("tr");
-    const labelCell = document.createElement("th");
-    labelCell.textContent = labelText;
-    const valueCell = document.createElement("td");
-    valueCell.textContent = value;
-    row.appendChild(labelCell);
-    row.appendChild(valueCell);
-    return row;
   }
 
   function GetWeather() {
@@ -210,16 +197,12 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function showMsgalert() {
-    const alertMsg = document.createElement("div");
-    alertMsg.id = "msg-alert";
-    alertMsg.textContent = "No data found.";
-    document.body.appendChild(alertMsg);
+    const alertMsg = document.querySelector("#msg-alert");
+    alertMsg.style.display = "block";
   }
 
   function HideMsgalert() {
     const alertMsg = document.querySelector("#msg-alert");
-    if (alertMsg) {
-      alertMsg.style.display = "none";
-    }
+    alertMsg.style.display = "none";
   }
 });
