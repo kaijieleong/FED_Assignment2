@@ -76,6 +76,8 @@ document.addEventListener("DOMContentLoaded", function () {
           const carparkInfo = {
             carparkNumber: carpark.carparkNumber,
             address: carpark.address,
+            xCoord: carpark.xCoord,
+            yCoord: carpark.yCoord,
             carparkType: carpark.carparkType,
             typeOfParkingSystem: carpark.typeOfParkingSystem,
             shortTermParking: carpark.shortTermParking,
@@ -84,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
             carparkDecks: carpark.carparkDecks,
             gantryHeight: carpark.gantryHeight,
             carparkBasement: carpark.carparkBasement,
+
           };
           localStorage.clear();
           localStorage.setItem(

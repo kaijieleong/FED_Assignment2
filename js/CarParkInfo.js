@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
   let weather = {};
   GetWeather();
   GetLot();
-
   console.log(CarparkLot);
   function GetLot() {
     fetch("https://api.data.gov.sg/v1/transport/carpark-availability")
@@ -34,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
         let flag = false;
+        let distance;
         const addName = document.getElementById("address-name");
         const tlot = document.querySelector("#tl");
         const lota = document.querySelector("#la");
@@ -43,13 +43,65 @@ document.addEventListener("DOMContentLoaded", function () {
         const shortTermParking = document.querySelector("#stp");
         const typeOfParkingSystem = document.querySelector("#tops");
         const gantryHeight = document.querySelector("#gh");
+        const distances = document.querySelector("#dis");
         for (let i = 0; i < CarparkLot.length; i++) {
           const carparks = CarparkLot[i];
           const carparkNumber = carparks.carparkNumber;
           const Data = localStorage.getItem(carparkNumber);
           const newdata = JSON.parse(Data);
-
           if (newdata) {
+            console.log(newdata.xCoord);
+            console.log(newdata.yCoord);
+            const X = newdata.xCoord;
+            const Y = newdata.yCoord;
+            const url = `https://www.onemap.gov.sg/api/common/convert/3414to4326?X=${X}&Y=${Y}`;
+
+            fetch(url, {
+              method: "GET",
+              headers: {
+                "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3NGQwZGMyMWFlZjBlZGM5Y2Q5OTk3Zjk4MDJlZjZhNCIsImlzcyI6Imh0dHA6Ly9pbnRlcm5hbC1hbGItb20tcHJkZXppdC1pdC0xMjIzNjk4OTkyLmFwLXNvdXRoZWFzdC0xLmVsYi5hbWF6b25hd3MuY29tL2FwaS92Mi91c2VyL3Bhc3N3b3JkIiwiaWF0IjoxNzA3Mjk4MTExLCJleHAiOjE3MDc1NTczMTEsIm5iZiI6MTcwNzI5ODExMSwianRpIjoiQ28wMWoyZmlaSUpSWVlxQyIsInVzZXJfaWQiOjIzNTYsImZvcmV2ZXIiOmZhbHNlfQ.wFM9kW_WXiCTlqdlkSyLKQNvT-o3vvyt1tF-Ztgt5QQ",
+                "Content-Type": "application/json",
+              },
+            })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+              })
+              .then(data => {
+                getUserLocation();
+                function getUserLocation() {
+                  if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(Distance);
+                  } else {
+                    console.log("Geolocation is not supported by this browser.");
+                  }
+                }
+
+                function Distance(position) {
+                  const lat1 = position.coords.latitude;
+                  const lon1 = position.coords.longitude;
+                  const lat2 = data.latitude;
+                  const lon2 = data.longitude;
+                  distance = calculateDistance(lat1, lon1, lat2, lon2);
+                  const roundedDistance = Math.round(distance * 10) / 10;
+                  distances.textContent = roundedDistance + "KM";
+                }
+                const calculateDistance = (lat1, lon1, lat2, lon2) => {
+                  const R = 6371; // Radius of the Earth in kilometers
+                  const dLat = (lat2 - lat1) * Math.PI / 180;  // Convert degrees to radians
+                  const dLon = (lon2 - lon1) * Math.PI / 180;  // Convert degrees to radians
+                  const a =
+                    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                  dis = R * c; // Distance in kilometers
+                  return dis;
+                }
+
+              })
             flag = true;
             addName.textContent = newdata.address;
             freeParking.textContent = newdata.freeParking;
@@ -57,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
             shortTermParking.textContent = newdata.shortTermParking;
             typeOfParkingSystem.textContent = newdata.typeOfParkingSystem;
             gantryHeight.textContent = newdata.gantryHeight;
+
             /*
             const keys = Object.keys(weather);
             const body = document.querySelector("#body");
