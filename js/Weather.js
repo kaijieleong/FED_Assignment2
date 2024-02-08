@@ -40,10 +40,16 @@ document.addEventListener("DOMContentLoaded", function () {
             cloudSymbol.textContent = "cloud";
             forecast.appendChild(cloudSymbol);
             forecast.appendChild(document.createTextNode(weather[keys[i]]));
-          } else if (weather[keys[i]].includes("rain")) {
+          } else if (weather[keys[i]].includes("Rain")) {
             const cloudSymbol = document.createElement("span");
             cloudSymbol.className = "material-symbols-outlined";
             cloudSymbol.textContent = "Rainy";
+            forecast.appendChild(cloudSymbol);
+            forecast.appendChild(document.createTextNode(weather[keys[i]]));
+          } else if (weather[keys[i]].includes("Thundery")) {
+            const cloudSymbol = document.createElement("span");
+            cloudSymbol.className = "material-symbols-outlined";
+            cloudSymbol.textContent = "thunderstorm";
             forecast.appendChild(cloudSymbol);
             forecast.appendChild(document.createTextNode(weather[keys[i]]));
           } else {

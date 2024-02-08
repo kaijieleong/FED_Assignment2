@@ -1,10 +1,12 @@
 const APIKEY = "65c2477d514d39bbd55fdb3d";
 document.addEventListener("DOMContentLoaded", function () {
+  HideMsgalert();
+
   // [STEP 1]: Create our submit form listener
   document.querySelector(".btn-Create").addEventListener("click", function (e) {
     // Prevent default action of the button
     e.preventDefault();
-    HideMsgalert();
+
     // [STEP 2]: Call your function to fetch and process data
     getdata();
     Createdata();
@@ -49,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
           passwords = document.getElementById("Password2").value;
         } else {
           showMsgalert();
+          setTimeout(HideMsgalert, 8000);
         }
       }
     }
@@ -56,9 +59,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let jsondata = {
       name: names,
       number: phonenumber,
+
       password: passwords,
     };
-    let settings = {
+    let settings1 = {
       method: "POST", //[cher] we will use post to send info
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("add-form").reset();
       },
     };
-    fetch("https://fed23-25a3.restdb.io/rest/account", settings)
+    fetch("https://fed23-25a3.restdb.io/rest/account", settings1)
       .then((response) => {
         response.json();
       })
