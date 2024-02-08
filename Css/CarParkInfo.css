@@ -1,0 +1,18 @@
+.status {
+  padding: 0.4rem 1rem;
+  border-radius: 1rem;
+  text-align: center;
+  display: inline-block;
+}
+.status.green {
+  background-color: #86e49d;
+  color: #006b21;
+}
+.status.red {
+  background-color: #d893a3;
+  color: #b30021;
+}
+.status.orange {
+  background-color: #ebc474;
+  color: #b34200;
+}

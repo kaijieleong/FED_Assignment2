@@ -35,15 +35,8 @@
     </div>
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">CarParkXD</a>
-        <dotlottie-player
-          src="https://lottie.host/814c4c0c-5d65-4595-b7fa-8702c9851883/wYbVvCye7e.json"
-          background="transparent"
-          speed="1"
-          style="width: 75px; height: 75px"
-          loop
-          autoplay
-        ></dotlottie-player>
+        <img src="../Css/Logo.png" alt="Logo" />
+        <a class="navbar-brand" href="../Html/Home.html">CarParkXD</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -69,6 +62,14 @@
             <li class="nav-item">
               <a class="nav-link" href="../Html/Weather.html">Weather</a>
             </li>
+            <li class="nav-item">
+              <a
+                class="nav-link show"
+                href="../Html/Favorite.html"
+                style="display: none"
+                >Favorite</a
+              >
+            </li>
           </ul>
           <button class="btn btn-outline-success" id="login" type="button">
             Login
@@ -86,7 +87,7 @@
           <table class="table-primary">
             <thead>
               <tr>
-                <th>Location</th>
+                <th colspan="2">Location</th>
               </tr>
             </thead>
             <tbody id="body"></tbody>

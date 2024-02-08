@@ -6,13 +6,21 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Black Ops One", system-ui;
-  /*font-family: 'Alfa Slab One', serif;*/
+  /*font-family: Arial, Helvetica, sans-serif;*/
 }
 .box {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+}
+.d-flex {
+  justify-content: center;
+  align-items: center;
+}
+.search {
+  width: 82vw;
+  max-width: 100%;
 }
 main.table {
   width: 82vw;
@@ -56,8 +64,10 @@ table {
   width: 100%;
 }
 h1 {
-  color: whitesmoke;
+  margin: 20px;
+  background-color: #fff6;
   text-align: center;
+  border-radius: 0.8rem;
 }
 table,
 th,
@@ -70,9 +80,7 @@ thead th {
   position: sticky;
   top: 0;
   left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
   font-size: larger;
   background-color: #d5d1defe;
 }
@@ -93,21 +101,17 @@ tbody tr:hover {
   transform: scale(1.2); /* Increase the scale to 1.1 on hover */
   transition: transform 0.3s ease;
 }
-.status {
-  padding: 0.4rem 0;
-  border-radius: 2rem;
-  text-align: center;
+.addfavbtn {
+  background-color: transparent;
+  outline: none;
+  color: gray;
+  border: none;
+  align-items: flex-end;
 }
-.status.Avaiable {
-  background-color: #86e49d;
-  color: #006b21;
-}
-.status.full {
-  background-color: #d893a3;
-  color: #b30021;
-}
-.status.m {
-  background-color: #ebc474;
+.addfavbtn span:hover {
+  cursor: pointer;
+  transform: scale(1.3);
+  transition: transform 0.3s ease;
 }
 #msg-alert {
   margin: 10px;
@@ -117,5 +121,8 @@ tbody tr:hover {
     min-width: 100%;
     box-sizing: border-box;
     font-size: 14px;
+  }
+  #table-address tbody td:first-child {
+    display: none;
   }
 }
