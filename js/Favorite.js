@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let weather = {};
   GetWeather();
 
-  const APIKEY = "65c2552f71a48870cb8b07de";
+  const APIKEY = "65c2477d514d39bbd55fdb3d";
   let settings = {
     method: "GET",
     headers: {
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
       "Cache-Control": "no-cache",
     },
   };
-  fetch(`https://fed123-ecda.restdb.io/rest/fedcar`, settings)
+  fetch(`https://fed23-25a3.restdb.io/rest/carpark`, settings)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);

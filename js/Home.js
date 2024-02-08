@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
         addfavbtn.onclick = function () {
           if (addfavbtn.style.color == "gray") {
             addfavbtn.style.color = "yellow";
-            const APIKEY = "65c2552f71a48870cb8b07de";
+            const APIKEY = "65c2477d514d39bbd55fdb3d";
             const jsondata = {
               id: id,
               carparknumber: carpark.carparkNumber,
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
               },
               body: JSON.stringify(jsondata),
             };
-            fetch("https://fed123-ecda.restdb.io/rest/fedcar", settings)
+            fetch("https://fed23-25a3.restdb.io/rest/carpark", settings)
               .then((response) => response.json())
               .then((data) => {
                 console.log(data);
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
           } else {
             addfavbtn.style.color = "gray";
             getid();
-            const APIKEY = "65c2552f71a48870cb8b07de";
+            const APIKEY = "65c2477d514d39bbd55fdb3d";
             let settings = {
               method: "DELETE",
               headers: {
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
               },
             };
             fetch(
-              `https://fed123-ecda.restdb.io/rest/fedcar/${deleteid}`,
+              `https://fed23-25a3.restdb.io/rest/carpark/${deleteid}`,
               settings
             )
               .then((response) => response.json())
@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function Checklogin() {
-    const APIKEY = "65c2552f71a48870cb8b07de";
+    const APIKEY = "65c2477d514d39bbd55fdb3d";
     let settings = {
       method: "GET",
       headers: {
@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "Cache-Control": "no-cache",
       },
     };
-    fetch("https://fed123-ecda.restdb.io/rest/fedinfo", settings)
+    fetch("https://fed23-25a3.restdb.io/rest/account", settings)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
   function getid() {
-    const APIKEY = "65c2552f71a48870cb8b07de";
+    const APIKEY = "65c2477d514d39bbd55fdb3d";
     let settings = {
       method: "GET",
       headers: {
@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "Cache-Control": "no-cache",
       },
     };
-    fetch(`https://fed123-ecda.restdb.io/rest/fedcar`, settings)
+    fetch(`https://fed23-25a3.restdb.io/rest/carpark`, settings)
       .then((response) => response.json())
       .then((data) => {
         //console.log(data);

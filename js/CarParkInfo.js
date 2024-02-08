@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   wft.textContent = "cloud";
                   console.log(weather[keys[w]]);
                   wft.appendChild(document.createTextNode(weather[keys[w]]));
-                } else if (weather[keys[w]].includes("rain")) {
+                } else if (weather[keys[w]].includes("Rain")) {
                   wft.className = "material-symbols-outlined";
                   wft.textContent = "Rainy";
                   wft.textContent = weather[keys[w]];
